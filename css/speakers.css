@@ -50,4 +50,27 @@ h1{
   font-weight: 700;
   color: var(--blanco);
 }
+.boton-card{
+  background-color: var(--borde-tarjeta);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: color 0.03s ease;
+  border: none;
+}
+
+.boton-card:hover {
+  background-color: var(--rojo-oscuro);
+  
+}
+
+h5 {
+ font-weight: 750;
+ font-size: 1.5rem;
+ text-align: center;
+}
+.card-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
 
