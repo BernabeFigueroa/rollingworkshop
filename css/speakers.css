@@ -39,8 +39,15 @@ body{
   border-radius: 32px;
   background-color: var(--superficie);
 }
-
 .imgs {
   border-radius: 32px;
   object-fit: cover;
 }
+h4{
+  color: var(--rojo-rolling);
+}
+h1{
+  font-weight: 700;
+  color: var(--blanco);
+}
+
