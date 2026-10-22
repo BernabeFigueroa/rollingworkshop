@@ -35,27 +35,37 @@ body{
   background-color: var(--negro-pagina);
 }
 .card {
-  margin: 8px;
+  margin: 10px;
   border-radius: 32px;
   background-color: var(--superficie);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
 }
+.card:hover {
+   transform: scale(1.05) translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.2); 
+}
+
 .imgs {
   border-radius: 32px;
   object-fit: cover;
 }
 h4{
   color: var(--rojo-rolling);
+  font-size: xx-large;
 }
 h1{
   font-weight: 700;
   color: var(--blanco);
+  font-size: 4.0rem;
 }
 .boton-card{
   background-color: var(--borde-tarjeta);
-  border-radius: 10px;
+  border-radius: 15px;
   cursor: pointer;
   transition: color 0.03s ease;
   border: none;
+  height: 60px;
 }
 
 .boton-card:hover {
@@ -69,8 +79,13 @@ h5 {
  text-align: center;
 }
 .card-text {
-  font-size: 1.2rem;
+  font-size: 1.1.5rem;
   font-weight: 600;
+  text-align: start;
+}
+.charla{
+  font-size: 1.0rem;
+  padding: 5px;
 }
 
 
