@@ -30,3 +30,17 @@
   --rosa-claro: #ffe9ea;
   --gris-sobre-blanco: #52525b;
 }
+
+body{
+  background-color: var(--negro-pagina);
+}
+.card {
+  margin: 8px;
+  border-radius: 32px;
+  background-color: var(--superficie);
+}
+
+.imgs {
+  border-radius: 32px;
+  object-fit: cover;
+}
