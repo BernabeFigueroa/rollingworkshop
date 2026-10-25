@@ -30,3 +30,43 @@
   --rosa-claro: #ffe9ea;
   --gris-sobre-blanco: #52525b;
 }
+
+.footer {
+    background-color: var(--negro-pagina);
+    padding: 30px 0;
+}
+
+.footer-contenido {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--borde-tarjeta);
+    padding-top: 30px;
+}
+
+.footer-logo {
+    height: 24px;
+}
+
+.footer-redes {
+    display: flex;
+    gap: 8px;
+}
+
+.footer-redes a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--borde-tarjeta);
+    border-radius: 50%;
+}
+
+.footer-redes img {
+    width: 18px;
+}
+
+.footer-redes a:hover {
+    background-color: var(--rojo-rolling);
+}
