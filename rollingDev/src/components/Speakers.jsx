@@ -24,27 +24,31 @@ const speakerList = [
 
 function Speakers() {
   return (
-    <section className="px-4 py-8">
+    <section className="px-4 py-12">
       <div className="mx-auto max-w-7xl">
-        <h4 className="mb-2 text-2xl font-semibold text-rojo-rolling">Speakers</h4>
-        <h1 className="mb-10 text-3xl font-bold md:text-5xl">Diez charlas, un mismo objetivo</h1>
+        <p className="speakers-titulo">
+          Speakers
+        </p>
+        <h1 className="speakers-subtitulo">
+          Diez charlas, un mismo objetivo
+        </h1>
 
-        <div className="grid grid-cols-1 justify-center gap-4 md:grid-cols-2 lg:grid-cols-5">
+        <div className="speaker-grid">
           {speakerList.map((speaker) => (
-            <div key={speaker.id} className="group">
-              <div className="h-full rounded-3xl border border-borde-tarjeta bg-superficie p-6 transition-all duration-300 ease-out group-hover:-translate-y-1 group-hover:scale-105 group-hover:border-rojo-rolling group-hover:shadow-lg group-hover:shadow-rojo-rolling/15">
-                <img
-                  src={speaker.image}
-                  alt={speaker.nombre}
-                  className="mx-auto mb-4 h-28 w-28 rounded-3xl object-cover"
-                />
-                <h5 className="mb-3 text-center text-xl font-bold">{speaker.nombre}</h5>
-                <button className="mb-4 h-15 w-full rounded-xl bg-borde-tarjeta px-4 py-3 transition-colors duration-300 hover:bg-rojo-oscuro">
-                  <p className="text-lg font-semibold">{speaker.tema}</p>
-                </button>
-                <p className="text-sm leading-relaxed text-gris-claro">{speaker.descripcion}</p>
+            <article key={speaker.id} className="speaker-card">
+              <img
+                src={speaker.image}
+                alt={speaker.nombre}
+                className="speaker-card__image"
+              />
+              <h2 className="speaker-card__name">{speaker.nombre}</h2>
+              <div
+                className={`speaker-card__topic${speaker.id === 1 ? ' speaker-card__topic--featured' : ''}`}
+              >
+                {speaker.tema}
               </div>
-            </div>
+              <p className="speaker-card__description">{speaker.descripcion}</p>
+            </article>
           ))}
         </div>
       </div>

@@ -5,10 +5,12 @@ import Footer from "./components/Footer"
 function App() {
 
   return (
-    <>
-      <Speakers/>
-      <Footer/>
-    </>
+    <div className="min-h-screen flex flex-col">
+     <main className="grow">
+     <Speakers/>
+     </main>
+     <Footer/>
+    </div>
   )
 }
 
