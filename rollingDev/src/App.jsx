@@ -1,5 +1,6 @@
 import Speakers from "./components/Speakers"
 import Footer from "./components/Footer"
+import Agenda from "./components/Agenda"
 
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
     <div className="min-h-screen flex flex-col">
      <main className="grow">
      <Speakers/>
+     <Agenda/>
      </main>
      <Footer/>
     </div>
