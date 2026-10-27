@@ -276,13 +276,483 @@
     line-height: 1.625;
   }
 
+  .tickets-section {
+    padding: 5rem 1rem;
+    background: var(--color-negro-pagina);
+    color: white;
+  }
+
+  .tickets-container {
+    width: min(1120px, 100%);
+    margin-inline: auto;
+  }
+
+  .tickets-heading {
+    max-width: 720px;
+    margin: 0 auto 2.5rem;
+    text-align: center;
+  }
+
+  .tickets-eyebrow {
+    margin: 0 0 0.65rem;
+    color: var(--color-rojo-rolling);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .tickets-title {
+    margin: 0;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+  }
+
+  .tickets-intro {
+    margin: 1rem 0 0;
+    color: var(--color-gris-medio);
+    line-height: 1.6;
+  }
+
+  .early-bird-banner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    border: 1px solid rgb(224 32 42 / 35%);
+    border-radius: 1.25rem;
+    background: linear-gradient(120deg, rgb(224 32 42 / 12%), var(--color-superficie) 65%);
+  }
+
+  .early-bird-copy h3 {
+    margin: 0;
+    font-size: 1.2rem;
+  }
+
+  .early-bird-copy > p:last-child {
+    margin: 0.4rem 0 0;
+    color: var(--color-gris-claro);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .countdown {
+    display: flex;
+    gap: 0.65rem;
+  }
+
+  .countdown-unit {
+    min-width: 4.25rem;
+    text-align: center;
+  }
+
+  .countdown-unit span {
+    display: block;
+    padding: 0.6rem 0.35rem;
+    border: 1px solid var(--color-borde-tarjeta);
+    border-radius: 0.65rem;
+    background: var(--color-negro-pagina);
+    color: var(--color-rojo-rolling);
+    font-size: 1.5rem;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .countdown-unit small {
+    display: block;
+    margin-top: 0.3rem;
+    color: var(--color-gris-medio);
+    font-size: 0.7rem;
+  }
+
+  .ticket-availability {
+    width: 100%;
+  }
+
+  .ticket-availability__labels {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.55rem;
+    color: var(--color-gris-claro);
+    font-size: 0.7rem;
+  }
+
+  .ticket-availability__labels span:last-child {
+    color: var(--color-rojo-rolling);
+    white-space: nowrap;
+  }
+
+  .ticket-availability__track {
+    height: 0.45rem;
+    overflow: hidden;
+    border-radius: 999px;
+    background: var(--color-gris-fuerte);
+  }
+
+  .ticket-availability__track span {
+    display: block;
+    width: 63%;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--color-rojo-rolling);
+  }
+
+  .ticket-cards {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+  }
+
+  .ticket-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    border: 1px solid var(--color-borde-tarjeta);
+    border-radius: 1.25rem;
+    background: var(--color-superficie);
+    transition: transform 180ms ease, border-color 180ms ease;
+  }
+
+  .ticket-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--color-rojo-rolling);
+  }
+
+  .ticket-card--featured {
+    border-color: var(--color-rojo-rolling);
+    background: linear-gradient(155deg, var(--color-rojo-oscuro), var(--color-rojo-profundo));
+  }
+
+  .ticket-card__topline {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .ticket-card__topline h3 {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+
+  .ticket-card__topline > span {
+    padding: 0.3rem 0.65rem;
+    border: 1px solid rgb(255 255 255 / 14%);
+    border-radius: 999px;
+    background: rgb(11 11 12 / 25%);
+    color: var(--color-gris-claro);
+    font-size: 0.7rem;
+    white-space: nowrap;
+  }
+
+  .ticket-card__price {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.6rem;
+    margin: 1.25rem 0 0;
+    font-size: 2.4rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+  }
+
+  .ticket-card__price del {
+    color: rgb(255 255 255 / 65%);
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0;
+  }
+
+  .ticket-card__note {
+    margin: 0.35rem 0 1.25rem;
+    color: var(--color-gris-medio);
+    font-size: 0.8rem;
+  }
+
+  .ticket-card--featured .ticket-card__note {
+    color: var(--color-gris-claro);
+  }
+
+  .ticket-benefits {
+    display: grid;
+    gap: 0.7rem;
+    margin: 0 0 1.5rem;
+    padding: 0;
+    color: var(--color-gris-claro);
+    font-size: 0.825rem;
+    line-height: 1.45;
+    list-style: none;
+  }
+
+  .ticket-benefits li {
+    display: flex;
+    gap: 0.55rem;
+  }
+
+  .ticket-benefits li span {
+    color: var(--color-rojo-rolling);
+    font-weight: 800;
+  }
+
+  .ticket-card--featured .ticket-benefits li span {
+    color: white;
+  }
+
+  .ticket-button {
+    width: 100%;
+    min-height: 46px;
+    margin-top: auto;
+    padding: 0.7rem 1rem;
+    border: 1px solid var(--color-borde-chip);
+    border-radius: 0.7rem;
+    background: transparent;
+    color: white;
+    font: inherit;
+    font-size: 0.875rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
+  }
+
+  .ticket-button:hover:not(:disabled) {
+    transform: translateY(-1px);
+    border-color: var(--color-rojo-rolling);
+    background: rgb(224 32 42 / 12%);
+  }
+
+  .ticket-button:focus-visible,
+  .checkout-option:focus-visible,
+  .quantity-control button:focus-visible {
+    outline: 2px solid var(--color-gris-claro);
+    outline-offset: 3px;
+  }
+
+  .ticket-button--light {
+    border-color: white;
+    background: white;
+    color: var(--color-rojo-profundo);
+  }
+
+  .ticket-button--light:hover:not(:disabled) {
+    border-color: var(--color-gris-claro);
+    background: var(--color-gris-claro);
+  }
+
+  .ticket-button--primary {
+    margin-top: 1.5rem;
+    border-color: var(--color-rojo-rolling);
+    background: var(--color-rojo-rolling);
+  }
+
+  .ticket-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+  }
+
+  .checkout-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+    padding: 1rem;
+    border: 1px solid var(--color-borde-tarjeta);
+    border-radius: 1.25rem;
+    background: var(--color-superficie);
+  }
+
+  .checkout-form,
+  .order-summary {
+    min-width: 0;
+    padding: 1.25rem;
+    border-radius: 0.9rem;
+  }
+
+  .checkout-form {
+    background: var(--color-gris-fuerte);
+  }
+
+  .checkout-form h3,
+  .order-summary h3 {
+    margin: 0 0 1rem;
+    font-size: 1.2rem;
+  }
+
+  .checkout-options {
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  .checkout-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+    padding: 0.85rem;
+    border: 1px solid var(--color-borde-tarjeta);
+    border-radius: 0.7rem;
+    background: var(--color-superficie);
+    color: white;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .checkout-option > span {
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .checkout-option small {
+    color: var(--color-gris-medio);
+    font-size: 0.7rem;
+  }
+
+  .checkout-option--selected {
+    border-color: var(--color-rojo-rolling);
+    box-shadow: inset 3px 0 var(--color-rojo-rolling);
+  }
+
+  .quantity-control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1.25rem;
+    color: var(--color-gris-claro);
+    font-weight: 600;
+  }
+
+  .quantity-control > div {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .quantity-control button {
+    display: grid;
+    width: 2.25rem;
+    height: 2.25rem;
+    place-items: center;
+    border: 1px solid var(--color-borde-chip);
+    border-radius: 50%;
+    background: var(--color-superficie);
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+
+  .quantity-control button:disabled {
+    color: var(--color-gris-medio);
+    cursor: not-allowed;
+  }
+
+  .quantity-control output {
+    min-width: 1.5rem;
+    color: white;
+    text-align: center;
+  }
+
+  .checkout-note {
+    margin: 1rem 0 0;
+    color: var(--color-gris-medio);
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
+
+  .order-summary {
+    scroll-margin-top: 2rem;
+    background: var(--color-negro-pagina);
+  }
+
+  .order-summary__event {
+    margin: 0 0 0.35rem;
+    font-weight: 700;
+  }
+
+  .order-summary__details {
+    margin: 0;
+    color: var(--color-gris-medio);
+    font-size: 0.8rem;
+  }
+
+  .order-summary hr {
+    margin: 1rem 0;
+    border: 0;
+    border-top: 1px solid var(--color-borde-tarjeta);
+  }
+
+  .order-summary__line,
+  .order-summary__total {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 0.875rem;
+  }
+
+  .order-summary__line + .order-summary__line {
+    margin-top: 0.65rem;
+  }
+
+  .order-summary__line--muted {
+    color: var(--color-gris-medio);
+  }
+
+  .order-summary__total {
+    align-items: baseline;
+    font-size: 1.2rem;
+    font-weight: 800;
+  }
+
+  .order-summary__total span:last-child {
+    color: var(--color-rojo-rolling);
+  }
+
+  .order-summary__secure {
+    display: flex;
+    gap: 0.5rem;
+    margin: 1rem 0 0;
+    color: var(--color-gris-claro);
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
+
+  .order-summary__secure span {
+    color: var(--color-rojo-rolling);
+    font-weight: 800;
+  }
+
   @media (min-width: 40rem) {
     .location-grid {
       grid-template-columns: 1.1fr 1fr;
     }
 
+    .early-bird-banner {
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .ticket-availability {
+      grid-column: 1 / -1;
+    }
+
     .speaker-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .ticket-cards {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .ticket-card:last-child {
+      grid-column: 1 / -1;
+    }
+
+    .checkout-panel {
+      padding: 1.25rem;
     }
 
     .speaker-card {
@@ -291,8 +761,30 @@
   }
 
   @media (min-width: 64rem) {
+    .early-bird-banner {
+      grid-template-columns: minmax(0, 1fr) auto minmax(190px, 0.7fr);
+    }
+
+    .ticket-availability {
+      grid-column: auto;
+    }
+
     .speaker-grid {
       grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .ticket-cards {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .ticket-card:last-child {
+      grid-column: auto;
+    }
+
+    .checkout-panel {
+      grid-template-columns: 1fr 0.9fr;
+      gap: 1rem;
+      padding: 1.5rem;
     }
   }
 }
