@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 
 const ticketOptions = [
-  { id: 'early', name: 'Early Bird', price: 25000, note: 'Presencial · Hasta el 31/10' },
-  { id: 'general', name: 'General', price: 35000, note: 'Presencial · Desde el 1/11' },
+  { id: 'early', name: 'Early Bird', price: 25000, note: 'Presencial · Hasta el 5/11' },
+  { id: 'general', name: 'General', price: 35000, note: 'Presencial · Desde el 6/11' },
   { id: 'virtual', name: 'Virtual', price: 15000, note: 'Transmisión en vivo y grabación' },
 ]
 
@@ -28,7 +28,7 @@ const ticketBenefits = {
   ],
 }
 
-const earlyBirdDeadline = new Date('2026-10-31T23:59:59-03:00').getTime()
+const earlyBirdDeadline = new Date('2026-11-06T00:00:00-03:00').getTime()
 const formatPrice = (amount) => `$${amount.toLocaleString('es-AR')}`
 
 function getTimeLeft() {
@@ -39,6 +39,7 @@ function getTimeLeft() {
     days: Math.floor(totalMinutes / 1440),
     hours: Math.floor((totalMinutes % 1440) / 60),
     minutes: totalMinutes % 60,
+    seconds: Math.floor(difference / 1000) % 60,
   }
 }
 
@@ -68,20 +69,21 @@ function ComprarEntrada() {
         <header className="tickets-heading">
           <p className="tickets-eyebrow">Entradas</p>
           <h2 className="tickets-title">Asegurá tu lugar antes de que suba el precio</h2>
-          <p className="tickets-intro">Elegí cómo querés participar y reservá tu lugar en el evento.</p>
+
         </header>
 
         <aside className="early-bird-banner" aria-label="Promoción Early Bird">
           <div className="early-bird-copy">
             <p className="tickets-eyebrow">Early Bird</p>
-            <h3>El precio especial termina el 31/10</h3>
+            <h3>El precio especial termina el 5/11</h3>
             <p>Comprá antes de que la entrada presencial pase de $25.000 a $35.000.</p>
           </div>
-          <div className="countdown" aria-label={`Quedan ${timeLeft.days} días, ${timeLeft.hours} horas y ${timeLeft.minutes} minutos`}>
+          <div className="countdown" role="timer" aria-live="off" aria-label={`Quedan ${timeLeft.days} días, ${timeLeft.hours} horas y ${timeLeft.minutes} minutos`}>
             {[
               { label: 'días', value: timeLeft.days },
               { label: 'horas', value: timeLeft.hours },
               { label: 'min', value: timeLeft.minutes },
+              { label: 'seg', value: timeLeft.seconds },
             ].map(({ label, value }) => (
               <div key={label} className="countdown-unit">
                 <span>{String(value).padStart(2, '0')}</span>
@@ -91,13 +93,13 @@ function ComprarEntrada() {
           </div>
           <div className="ticket-availability">
             <div className="ticket-availability__labels">
-              <span>Quedan 38 de 60 Early Bird</span>
-              <span>63% vendidas</span>
+              <span>Disponibilidad ilustrativa</span>
+              <span>63 % · muestra</span>
             </div>
             <div
               className="ticket-availability__track"
               role="progressbar"
-              aria-label="Entradas Early Bird vendidas"
+              aria-label="Disponibilidad de muestra del mockup"
               aria-valuenow="63"
               aria-valuemin="0"
               aria-valuemax="100"
@@ -115,7 +117,7 @@ function ComprarEntrada() {
             >
               <div className="ticket-card__topline">
                 <h3>{ticket.name}</h3>
-                <span>{ticket.id === 'early' ? 'Quedan 38' : ticket.id === 'general' ? 'Desde el 1/11' : 'Disponible siempre'}</span>
+                <span>{ticket.id === 'early' ? 'Quedan 38' : ticket.id === 'general' ? 'Desde el 6/11' : 'Disponible siempre'}</span>
               </div>
               <p className="ticket-card__price">
                 {formatPrice(ticket.price)}
@@ -138,7 +140,9 @@ function ComprarEntrada() {
           ))}
         </div>
 
-        <div className="checkout-panel">
+        <div className="checkout-panel" id="checkout">
+          <header className="checkout-heading"><div><p className="section-eyebrow">Compra segura</p><h2 className="section-title">Finalizá tu compra</h2></div><ol aria-label="Pasos previstos de compra"><li aria-current="step">1 Entrada</li><li>2 Datos</li><li>3 Pago</li><li>4 Listo</li></ol></header>
+          <div className="checkout-grid">
           <div className="checkout-form">
             <h3>Elegí tu entrada</h3>
             <div className="checkout-options" role="group" aria-label="Tipo de entrada">
@@ -180,11 +184,14 @@ function ComprarEntrada() {
                 </button>
               </div>
             </div>
-            <p className="checkout-note">El cargo por servicio se calcula sobre el subtotal.</p>
+            <button type="button" className="ticket-button ticket-button--primary" disabled>
+              Compra próximamente
+            </button>
+            <p className="checkout-note">La compra online estará disponible próximamente. No se realizan pagos ni reservas.</p>
           </div>
 
           <div id="resumen-compra" className="order-summary" aria-live="polite">
-            <h3>Resumen de compra</h3>
+            <p className="section-eyebrow">Tu pedido</p>
             <p className="order-summary__event">Workshop Rolling Code School</p>
             <p className="order-summary__details">Jueves 19/11 · 18:00 hs · Gral. Paz 576, Entrepiso</p>
             <hr />
@@ -202,11 +209,10 @@ function ComprarEntrada() {
               <span>{formatPrice(total)}</span>
             </div>
             <p className="order-summary__secure">
-              <span aria-hidden="true">✓</span> Pago protegido. Recibí la entrada por email.
+              <span aria-hidden="true">✓</span> Selección de demostración. El proceso de compra estará disponible próximamente.
             </p>
-            <button type="button" className="ticket-button ticket-button--primary" disabled>
-              Compra próximamente
-            </button>
+
+          </div>
           </div>
         </div>
       </div>
