@@ -24,7 +24,7 @@ const speakerList = [
 
 function Speakers() {
   return (
-    <section className="px-4 py-12">
+    <section id="speakers" className="px-4 py-12">
       <div className="mx-auto max-w-7xl">
         <p className="speakers-titulo">
           Speakers
