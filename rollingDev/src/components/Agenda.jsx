@@ -31,7 +31,7 @@ const ScheduleItem = ({ time, title, speaker }) => (
 
 const Agenda = () => {
   return (
-    <div className="min-h-screen bg-negro-pagina text-gray-100 flex items-center justify-center p-4 font-jakarta">
+    <div id="agenda" className="min-h-screen bg-negro-pagina text-gray-100 flex items-center justify-center p-4 font-jakarta">
       <div className="w-full max-w-4xl color-gris-fuerte rounded-lg shadow-2xl overflow-hidden">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
           <div className="p-8 flex flex-col justify-start border-b md:border-b-0 md:border-r color-gris-fuerte">

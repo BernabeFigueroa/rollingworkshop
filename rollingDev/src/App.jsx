@@ -1,3 +1,4 @@
+import Navbar from './components/Navbar'
 import Speakers from './components/Speakers'
 import Footer from './components/Footer'
 import Agenda from './components/Agenda'
@@ -6,7 +7,8 @@ import ComoLlegar from './components/ComoLlegar'
 
 function App() {
   return (
-    <div className="min-h-screen flex flex-col bg-negro-pagina text-white">
+    <div id="inicio" className="min-h-screen flex flex-col bg-negro-pagina text-white">
+      <Navbar />
       <main className="grow">
         <Speakers />
         <Agenda />
