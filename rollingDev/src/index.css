@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --color-rojo-rolling: #e0202a;
@@ -12,18 +12,195 @@
   --color-borde-chip: #3a3a40;
   --color-gris-claro: #d4d4d8;
   --color-gris-medio: #a1a1aa;
-  --font-jakarta: "Plus Jakarta Sans", sans-serif;
+  --font-jakarta: 'Plus Jakarta Sans', sans-serif;
 }
 
+
 @layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
+    margin: 0;
     background-color: var(--color-negro-pagina);
     color: white;
     font-family: var(--font-jakarta);
   }
+
+  a {
+    text-decoration: none;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+  }
+}
+
+@layer utilities {
+  .bg-negro-pagina { background-color: var(--color-negro-pagina); }
+  .bg-superficie { background-color: var(--color-superficie); }
+  .color-gris-fuerte { background-color: var(--color-gris-fuerte); }
+  .text-gris-claro { color: var(--color-gris-claro); }
+  .text-gris-medio { color: var(--color-gris-medio); }
+  .border-borde-tarjeta { border-color: var(--color-borde-tarjeta); }
+  .font-jakarta { font-family: var(--font-jakarta); }
+  .min-w-15 { min-width: 3.75rem; }
 }
 
 @layer components {
+  .landing-container {
+    width: min(1200px, calc(100% - 2rem));
+    margin-inline: auto;
+  }
+
+  .landing-section {
+    padding-block: 4rem;
+  }
+
+  .location-grid {
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+
+  .section-eyebrow {
+    margin: 0 0 0.75rem;
+    color: var(--color-rojo-rolling);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .section-title {
+    margin: 0;
+    color: white;
+    font-size: clamp(2.1rem, 5vw, 3.5rem);
+    line-height: 1.04;
+    letter-spacing: -0.04em;
+  }
+
+  .event-chip {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--color-borde-chip);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.02);
+    padding: 0.5rem 0.9rem;
+    color: var(--color-gris-claro);
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .rc-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    padding: 0.75rem 1.4rem;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    font-weight: 700;
+    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  }
+
+  .rc-button:hover {
+    transform: translateY(-1px);
+  }
+
+  .rc-button--red {
+    background: linear-gradient(135deg, var(--color-rojo-rolling) 0%, var(--color-rojo-oscuro) 100%);
+    color: white;
+    box-shadow: 0 16px 30px rgb(224 32 42 / 28%);
+  }
+
+  .rc-button--outline {
+    border-color: rgba(255, 255, 255, 0.22);
+    background: transparent;
+    color: white;
+  }
+
+  .location-map {
+    display: block;
+    overflow: hidden;
+    border: 1px solid var(--color-borde-tarjeta);
+    border-radius: 1.5rem;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+    min-height: 270px;
+    position: relative;
+  }
+
+  .location-map__streets {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 180px;
+    background:
+      linear-gradient(135deg, rgba(224, 32, 42, 0.12), rgba(255, 255, 255, 0.02)),
+      repeating-linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.04) 0,
+        rgba(255, 255, 255, 0.04) 2px,
+        transparent 2px,
+        transparent 34px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.04) 0,
+        rgba(255, 255, 255, 0.04) 2px,
+        transparent 2px,
+        transparent 30px
+      ),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
+  }
+
+  .location-map__pin {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 999px;
+    background: var(--color-rojo-rolling);
+    color: white;
+    font-size: 1.6rem;
+    box-shadow: 0 16px 30px rgb(224 32 42 / 34%);
+  }
+
+  .location-map__caption {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 1rem 1.2rem 1.1rem;
+    color: var(--color-gris-claro);
+  }
+
+  .location-map__caption strong {
+    color: white;
+    font-size: 1.06rem;
+  }
+
+  .location-map__caption span,
+  .location-map__caption small {
+    color: var(--color-gris-medio);
+  }
+
+  .location-map__caption small {
+    margin-top: 0.25rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+  }
+
   .speaker-grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
@@ -31,24 +208,23 @@
   }
 
   .speakers-titulo {
-    font-size: 2.0rem;
+    font-size: 2rem;
     font-weight: 600;
     color: var(--color-rojo-rolling);
   }
+
   .speakers-subtitulo {
     font-size: 4.1rem;
     font-weight: 700;
   }
+
   .speaker-card {
     height: 100%;
     padding: 1.25rem;
     border: 1px solid var(--color-borde-tarjeta);
     border-radius: 1.5rem;
     background-color: var(--color-superficie);
-    transition:
-      transform 200ms ease,
-      border-color 200ms ease,
-      box-shadow 200ms ease;
+    transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
   }
 
   .speaker-card:hover {
@@ -83,20 +259,15 @@
     font-size: 0.875rem;
     font-weight: 600;
     line-height: 1.375;
-    transition:
-      transform 100ms ease,
-      border-color 100ms ease,
-      box-shadow 100ms ease;
+    transition: transform 100ms ease, border-color 100ms ease, box-shadow 100ms ease;
   }
 
   .speaker-card__topic:hover {
-      transform: translateY(-0.25rem);
+    transform: translateY(-0.25rem);
     border-color: var(--color-rojo-rolling);
     box-shadow: 0 12px 15px rgba(236, 7, 19, 0.15);
     background-color: var(--color-rojo-oscuro);
   }
-
-  
 
   .speaker-card__description {
     color: var(--color-gris-claro);
@@ -105,6 +276,10 @@
   }
 
   @media (min-width: 40rem) {
+    .location-grid {
+      grid-template-columns: 1.1fr 1fr;
+    }
+
     .speaker-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
