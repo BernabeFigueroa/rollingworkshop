@@ -24,24 +24,26 @@ const speakerList = [
 
 function Speakers() {
   return (
-    <section id="speakers" className="px-4 py-12">
-      <div className="mx-auto max-w-7xl">
+    <section id="speakers" className="landing-container landing-section" aria-labelledby="speakers-title">
+      <div className="speakers-content">
         <p className="speakers-titulo">
           Speakers
         </p>
-        <h1 className="speakers-subtitulo">
+        <h2 id="speakers-title" className="section-title">
           Diez charlas, un mismo objetivo
-        </h1>
+        </h2>
 
         <div className="speaker-grid">
           {speakerList.map((speaker) => (
             <article key={speaker.id} className="speaker-card">
               <img
                 src={speaker.image}
+                loading="lazy"
+                width="400" height="400"
                 alt={speaker.nombre}
                 className="speaker-card__image"
               />
-              <h2 className="speaker-card__name">{speaker.nombre}</h2>
+              <h3 className="speaker-card__name">{speaker.nombre}</h3>
               <div
                 className={`speaker-card__topic${speaker.id === 1 ? ' speaker-card__topic--featured' : ''}`}
               >
