@@ -43,6 +43,7 @@
 }
 
 @layer utilities {
+  .bg-rojo-rolling { background-color: var(--color-rojo-rolling); }
   .bg-negro-pagina { background-color: var(--color-negro-pagina); }
   .bg-superficie { background-color: var(--color-superficie); }
   .color-gris-fuerte { background-color: var(--color-gris-fuerte); }
