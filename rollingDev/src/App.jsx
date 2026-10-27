@@ -7,6 +7,7 @@ import ComoLlegar from './components/ComoLlegar'
 import Sponsors from './components/Sponsors'
 import SponsorForm from './components/SponsorForm'
 import Footer from './components/Footer'
+import MobileTicketBar from './components/MobileTicketBar'
 
 export default function App() {
   return <div id="inicio" className="site-page">
@@ -22,5 +23,6 @@ export default function App() {
       <SponsorForm />
     </main>
     <Footer />
+    <MobileTicketBar />
   </div>
 }

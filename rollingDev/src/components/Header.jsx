@@ -12,6 +12,18 @@ export default function Header() {
   return <>
     <section className="hero-shell" aria-labelledby="hero-title">
       <div className="hero-panel">
+        <div className="hero-code-background" aria-hidden="true">
+          <svg className="hero-code-background__network" viewBox="0 0 1200 720" fill="none" preserveAspectRatio="xMidYMid slice">
+            <path d="M-60 180 180 80 420 200 700 100 940 240 1260 120M-60 540 220 400 460 580 740 440 1000 600 1260 460M180 80 220 400 420 200 460 580 700 100 740 440 940 240 1000 600" />
+            {[[180,80],[420,200],[700,100],[940,240],[220,400],[460,580],[740,440],[1000,600]].map(([cx,cy]) => <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r="4" />)}
+          </svg>
+          <div className="hero-code-background__code">
+            <span>{'const nextStep = await learn();'}</span>
+            <span>{'<Workshop community="Rolling Code" />'}</span>
+            <span>{'git commit -m "mi primer proyecto"'}</span>
+            <span>{'function start() { return build(); }'}</span>
+          </div>
+        </div>
         <div className="hero-copy">
           <p className="hero-eyebrow"><em>Workshop</em> entradas limitadas</p>
           <h1 id="hero-title">¿POR DÓNDE<br />EMPIEZO A<br /><span>PROGRAMAR?</span></h1>
