@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react'
+import Checkout from './Checkout'
+import FlipNumber from './FlipNumber'
 
 const ticketOptions = [
   { id: 'early', name: 'Early Bird', price: 25000, note: 'Presencial · Hasta el 5/11' },
@@ -47,20 +49,18 @@ function ComprarEntrada() {
   const [timeLeft, setTimeLeft] = useState(getTimeLeft)
   const [selectedTicket, setSelectedTicket] = useState('early')
   const [quantity, setQuantity] = useState(1)
+  const [checkoutSession, setCheckoutSession] = useState(0)
 
   useEffect(() => {
-    const timer = setInterval(() => setTimeLeft(getTimeLeft()), 60000)
+    const timer = setInterval(() => setTimeLeft(getTimeLeft()), 1000)
     return () => clearInterval(timer)
   }, [])
 
-  const selected = ticketOptions.find((ticket) => ticket.id === selectedTicket)
-  const subtotal = selected.price * quantity
-  const serviceFee = Math.round(subtotal * 0.05)
-  const total = subtotal + serviceFee
-
   const chooseTicket = (ticketId) => {
     setSelectedTicket(ticketId)
-    document.getElementById('resumen-compra')?.scrollIntoView({ behavior: 'smooth' })
+    setQuantity(1)
+    setCheckoutSession(current => current + 1)
+    document.getElementById('checkout')?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
   }
 
   return (
@@ -78,7 +78,7 @@ function ComprarEntrada() {
             <h3>El precio especial termina el 5/11</h3>
             <p>Comprá antes de que la entrada presencial pase de $25.000 a $35.000.</p>
           </div>
-          <div className="countdown" role="timer" aria-live="off" aria-label={`Quedan ${timeLeft.days} días, ${timeLeft.hours} horas y ${timeLeft.minutes} minutos`}>
+          <div className="countdown" role="timer" aria-live="off" aria-label={`Quedan ${timeLeft.days} días, ${timeLeft.hours} horas, ${timeLeft.minutes} minutos y ${timeLeft.seconds} segundos`}>
             {[
               { label: 'días', value: timeLeft.days },
               { label: 'horas', value: timeLeft.hours },
@@ -86,7 +86,7 @@ function ComprarEntrada() {
               { label: 'seg', value: timeLeft.seconds },
             ].map(({ label, value }) => (
               <div key={label} className="countdown-unit">
-                <span>{String(value).padStart(2, '0')}</span>
+                <FlipNumber value={value} />
                 <small>{label}</small>
               </div>
             ))}
@@ -129,6 +129,10 @@ function ComprarEntrada() {
                   <li key={benefit}><span aria-hidden="true">✓</span>{benefit}</li>
                 ))}
               </ul>
+              <div className="ticket-card__stub" aria-hidden="true">
+                <span>Rolling Code · 19 NOV</span>
+                <span className="ticket-card__barcode" />
+              </div>
               <button
                 type="button"
                 className={ticket.id === 'early' ? 'ticket-button ticket-button--light' : 'ticket-button'}
@@ -140,81 +144,7 @@ function ComprarEntrada() {
           ))}
         </div>
 
-        <div className="checkout-panel" id="checkout">
-          <header className="checkout-heading"><div><p className="section-eyebrow">Compra segura</p><h2 className="section-title">Finalizá tu compra</h2></div><ol aria-label="Pasos previstos de compra"><li aria-current="step">1 Entrada</li><li>2 Datos</li><li>3 Pago</li><li>4 Listo</li></ol></header>
-          <div className="checkout-grid">
-          <div className="checkout-form">
-            <h3>Elegí tu entrada</h3>
-            <div className="checkout-options" role="group" aria-label="Tipo de entrada">
-              {ticketOptions.map((ticket) => (
-                <button
-                  key={ticket.id}
-                  type="button"
-                  aria-pressed={selectedTicket === ticket.id}
-                  onClick={() => setSelectedTicket(ticket.id)}
-                  className={`checkout-option${selectedTicket === ticket.id ? ' checkout-option--selected' : ''}`}
-                >
-                  <span>
-                    <strong>{ticket.name}</strong>
-                    <small>{ticket.note}</small>
-                  </span>
-                  <strong>{formatPrice(ticket.price)}</strong>
-                </button>
-              ))}
-            </div>
-
-            <div className="quantity-control">
-              <span id="quantity-label">Cantidad</span>
-              <div>
-                <button
-                  type="button"
-                  aria-label="Quitar una entrada"
-                  disabled={quantity <= 1}
-                  onClick={() => setQuantity((current) => Math.max(1, current - 1))}
-                >
-                  −
-                </button>
-                <output aria-labelledby="quantity-label">{quantity}</output>
-                <button
-                  type="button"
-                  aria-label="Agregar una entrada"
-                  onClick={() => setQuantity((current) => current + 1)}
-                >
-                  +
-                </button>
-              </div>
-            </div>
-            <button type="button" className="ticket-button ticket-button--primary" disabled>
-              Compra próximamente
-            </button>
-            <p className="checkout-note">La compra online estará disponible próximamente. No se realizan pagos ni reservas.</p>
-          </div>
-
-          <div id="resumen-compra" className="order-summary" aria-live="polite">
-            <p className="section-eyebrow">Tu pedido</p>
-            <p className="order-summary__event">Workshop Rolling Code School</p>
-            <p className="order-summary__details">Jueves 19/11 · 18:00 hs · Gral. Paz 576, Entrepiso</p>
-            <hr />
-            <div className="order-summary__line">
-              <span>{quantity} entrada{quantity > 1 ? 's' : ''} {selected.name}</span>
-              <span>{formatPrice(subtotal)}</span>
-            </div>
-            <div className="order-summary__line order-summary__line--muted">
-              <span>Cargo por servicio (5%)</span>
-              <span>{formatPrice(serviceFee)}</span>
-            </div>
-            <hr />
-            <div className="order-summary__total">
-              <span>Total</span>
-              <span>{formatPrice(total)}</span>
-            </div>
-            <p className="order-summary__secure">
-              <span aria-hidden="true">✓</span> Selección de demostración. El proceso de compra estará disponible próximamente.
-            </p>
-
-          </div>
-          </div>
-        </div>
+        <Checkout key={checkoutSession} ticketOptions={ticketOptions} selectedTicket={selectedTicket} onSelect={setSelectedTicket} quantity={quantity} onQuantity={setQuantity} />
       </div>
     </section>
   )
