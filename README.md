@@ -1,71 +1,117 @@
-# RollingDev
+# Rolling Workshop
 
-<img width="910" height="300" alt="logo-rolling-blanco" src="https://github.com/user-attachments/assets/a08facb2-8190-4b1a-8685-3c41683a5aad" />
+Una experiencia web para descubrir el workshop de Rolling Code School, conocer a sus speakers y recorrer una simulación de compra de entradas presenciales o virtuales.
 
+[Ver la landing](https://rollingdev2.vercel.app/) · [Repositorio](https://github.com/BernabeFigueroa/rollingworkshop)
 
-## 📄 Descripción General
-Proyecto de desarrollo web realizado en el marco del **Scrum Professional Bootcamp** de Rolling Code School. Consiste en una landing page fiel al diseño proporcionado, destinada a la difusión del evento y la gestión de venta de entradas. Se implementa con tecnologías estándar del entorno frontend y se publica de forma accesible mediante GitHub Pages.
+## Funcionalidades
 
-> **Alcance:** Estructura, estilos, componentes interactivos y validación de formularios en el lado del cliente. **No se requiere desarrollo de backend ni persistencia de datos.**
+| Sección | Experiencia |
+| --- | --- |
+| Portada | Información del evento, modalidades, accesos a entradas y fondo animado |
+| Speakers | Grilla en escritorio y carrusel móvil con flechas, indicadores y desplazamiento táctil |
+| Agenda | Cronograma de charlas con línea de tiempo y aparición progresiva |
+| Entradas | Tres modalidades, contador dinámico de Early Bird y tarjetas con formato de ticket |
+| Compra simulada | Selección y cantidad, datos personales, tarjeta de prueba y confirmación con número de operación |
+| Sponsors | Niveles Diamante, Oro y Bronce y formulario de postulación con validación de archivos |
+| Ubicación | Dirección del evento, Google Maps integrado y acceso al mapa externo |
+| Navegación móvil | Menú hamburguesa translúcido y barra inferior de acceso a entradas |
+| Mascota interactiva | Robot SVG que acompaña el scroll, se puede arrastrar y enlaza a Rolling Code School |
 
----
+## Tecnologías
 
-## 🎯 Objetivos del Proyecto
-- Reproducir fielmente la interfaz definida en el mockup: colores, tipografía, dimensiones y distribución.
-- Garantizar la adaptabilidad del diseño a dispositivos móviles, tabletas y escritorio.
-- Implementar validación de formularios con mensajes claros y accesibles.
-- Aplicar la metodología Scrum durante todo el ciclo de desarrollo.
-- Entregar el producto final en un entorno de acceso público.
+| Tecnología | Uso |
+| --- | --- |
+| React 19 | Componentes, estado y comportamiento de la interfaz |
+| Vite 8 | Servidor de desarrollo y empaquetado |
+| Tailwind CSS 4 | Utilidades de estilo, integrado con `@tailwindcss/vite` |
+| CSS | Diseño responsive, efectos, transiciones y animaciones |
+| SVG y WebP | Gráficos vectoriales y fotografías optimizadas |
+| ESLint | Análisis estático del código |
+| Node.js Test Runner | Pruebas de las validaciones del checkout |
 
----
+El proyecto no utiliza Bootstrap. Las dependencias y sus versiones se pueden consultar en `package.json`.
 
-## 🛠️ Stack Tecnológico
-| Componente | Tecnología / Versión |
-|---|---|
-| Estructura | HTML5 |
-| Estilos | CSS3 con variables personalizadas |
-| Framework de interfaz | Bootstrap 5.3.3 (CDN) |
-| Tipografía | Google Fonts — Plus Jakarta Sans |
-| Control de versiones | Git & GitHub |
-| Despliegue | GitHub Pages |
+## Desarrollo local
 
----
+Requisitos: Node.js compatible con Vite 8 y pnpm. Las dependencias están fijadas en `pnpm-lock.yaml`.
 
-## 🎨 Especificaciones de Diseño
+```bash
+git clone https://github.com/BernabeFigueroa/rollingworkshop.git
+cd rollingworkshop
+pnpm install --frozen-lockfile
+pnpm dev
+```
 
-### Paleta de Colores
-Definida centralmente en `css/styles.css` mediante variables CSS para facilitar mantenimiento y consistencia:
+Abrí la dirección que indique Vite. Para detener el servidor, presioná `Ctrl + C`.
 
-| Variable | Valor | Aplicación |
-|---|---|---|
-| `--rc-red` | `#e0202a` | Botones, íconos, etiquetas |
-| `--rc-red-dark` | `#a50d14` | Degradado (punto intermedio) |
-| `--rc-red-deep` | `#6e070c` | Degradado (punto final) |
-| `--rc-black` | `#0b0b0c` | Fondo principal |
-| `--rc-surface` | `#111113` | Tarjetas y bloques diferenciados |
-| `--rc-white` | `#ffffff` | Títulos y textos sobre fondo oscuro |
-| `--rc-text-soft` | `#d4d4d8` | Párrafos, bordes secundarios |
-| `--rc-text-mute` | `#a1a1aa` | Textos de apoyo |
-| `--rc-gradient` | `linear-gradient(160deg, #e0202a 0%, #a50d14 55%, #6e070c 100%)` | Bloque principal y sección de compra |
+Si las dependencias ya están instaladas, también podés iniciar el servidor con `npm run dev` desde la raíz.
 
-### Tipografía
-- Fuente base: **Plus Jakarta Sans** (system-ui como respaldo)
-- Pesos utilizados: 300 itálico, 400, 600 y 800
-- Títulos responsivos mediante `clamp()`:
-  - Título principal: `clamp(40px, 6vw, 88px)`
-  - Títulos de sección: `clamp(34px, 4.5vw, 56px)`
+## Comprobaciones
 
-### Dimensiones y Espaciado
-- Ancho máximo del contenedor principal: `1200px` (centrado)
-- Separación entre secciones: `96px`
-- Radio de esquinas: bloques `40px`, tarjetas `32px`, campos de formulario `14px`, botones en forma de píldora
-- Altura mínima de botones: `52px` (barra de navegación: `44px`)
+```bash
+pnpm lint
+node --test src/utils/checkoutValidation.test.js
+```
 
----
+| Comando | Función |
+| --- | --- |
+| `pnpm dev` | Iniciar el servidor local |
+| `pnpm lint` | Ejecutar ESLint |
+| `node --test src/utils/checkoutValidation.test.js` | Comprobar las validaciones de compra |
+| `pnpm build` | Generar la versión de producción en `dist/` |
+| `pnpm preview` | Previsualizar una versión de producción ya generada |
 
-## 🚀 Instalación y Ejecución Local
+Ejecutá los comandos desde la raíz del repositorio. No es necesario ingresar a otra carpeta `rollingDev/`.
 
-1. **Clonar el repositorio**
-   ```bash
-   git clone https://github.com/luciollanos1234-eng/rollingDev.git
-   cd rollingDev
+## Estructura
+
+```text
+public/               Íconos e imágenes públicas
+src/
+  assets/             Logos e íconos utilizados por los componentes
+  components/         Secciones y componentes de la landing
+  utils/              Validaciones de compra y sus pruebas
+  App.jsx             Organización de las secciones
+  main.jsx            Entrada de React y carga de estilos
+index.html            Metadatos e inicio de la aplicación
+vite.config.js        Configuración de Vite y Tailwind
+eslint.config.js      Configuración de ESLint
+package.json          Dependencias y comandos
+pnpm-lock.yaml        Versiones de las dependencias
+```
+
+## Alcance
+
+El proceso de compra es una simulación: valida los datos ingresados y genera un número de operación ficticio. No procesa pagos, reservas ni envío de entradas. El formulario de sponsors también es de demostración y no envía datos a un servidor.
+
+### Probar la compra
+
+1. Elegí una modalidad y una cantidad entera mayor que cero.
+2. Completá los datos personales con información ficticia.
+3. Usá la tarjeta de prueba `4242 4242 4242 4242`, un vencimiento futuro en formato `MM/AA` y el código `123`.
+4. Confirmá la simulación para obtener un identificador de operación `DEMO-…`.
+
+La validación de tarjeta comprueba formato, vencimiento y checksum de Luhn. No realiza una autorización bancaria ni verifica fondos. No ingreses datos reales de tarjeta.
+
+### Formulario de sponsors
+
+Solicita nombre, apellido, empresa, email corporativo y nivel de sponsor. El logo es opcional y admite PNG, JPG, SVG o WebP de hasta 5 MB. El mensaje final confirma únicamente la demostración del formulario.
+
+## Diseño y accesibilidad
+
+- Paleta negra y roja, tipografía Plus Jakarta Sans y estilos adaptados a distintas anchuras.
+- Formularios con etiquetas, mensajes de error y estados de validación.
+- Navegación por teclado, foco visible y acceso para saltar al contenido.
+- Preferencia `prefers-reduced-motion` para reducir los efectos animados.
+- Menú móvil que se cierra al elegir una sección o presionar Escape.
+- Mascota disponible desde 1024 px, con opción para ocultarla.
+
+Las fotografías de speakers están en `public/speakers/`. Las referencias de los logos de sponsors se encuentran en `src/assets/sponsors/SOURCES.md`.
+
+## Despliegue en Vercel
+
+La aplicación está en la raíz del repositorio. En Vercel, dejá **Root Directory** vacío o en `.`; seleccioná Vite y usá `dist` como directorio de salida. Si antes estaba configurado `rollingDev`, actualizá ese valor antes del próximo despliegue.
+
+Los recursos de terceros —Google Fonts y Google Maps— necesitan conexión a Internet. Para agregar pagos reales, envío de formularios o persistencia de datos se requiere una integración adicional; esas capacidades no forman parte de esta implementación.
+
