@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import './ScrollRobot.css'
+import EventChat from './EventChat'
 
 export default function ScrollRobot() {
   const [dismissed, setDismissed] = useState(false)
+  const [chatOpen, setChatOpen] = useState(false)
   const robot = useRef(null)
   const interacting = useRef(false)
   const currentPosition = useRef(null)
@@ -17,7 +19,7 @@ export default function ScrollRobot() {
     dragged.current = false
     interacting.current = true
     robot.current.dataset.greeting = 'false'
-    drag.current = { id: event.pointerId, x: event.clientX, y: event.clientY, left: bounds.left, top: bounds.top + window.scrollY }
+    drag.current = { id: event.pointerId, x: event.clientX, y: event.clientY, lastX: event.clientX, lastTime: performance.now(), left: bounds.left, top: bounds.top + window.scrollY }
     event.currentTarget.setPointerCapture(event.pointerId)
   }
 
@@ -28,6 +30,12 @@ export default function ScrollRobot() {
     const dy = event.clientY - start.y
     if (!dragged.current && Math.hypot(dx,dy) < 6) return
     dragged.current = true
+    const now = performance.now()
+    const velocity = (event.clientX - start.lastX) / Math.max(8,now - start.lastTime)
+    start.lastX = event.clientX
+    start.lastTime = now
+    robot.current.style.setProperty('--drag-swing',`${Math.max(-32,Math.min(32,velocity * 22))}deg`)
+    robot.current.style.setProperty('--drag-lean',`${Math.max(-8,Math.min(8,velocity * 5))}deg`)
     const x = Math.max(0,Math.min(document.documentElement.clientWidth - 76,start.left + dx))
     const y = Math.max(window.scrollY,Math.min(window.scrollY + window.innerHeight - 128,start.top + dy))
     currentPosition.current = { x,y }
@@ -37,7 +45,7 @@ export default function ScrollRobot() {
     robot.current.dataset.dragging = 'true'
     robot.current.dataset.walking = 'true'
     clearTimeout(dragTimer.current)
-    dragTimer.current = setTimeout(() => { if (robot.current) robot.current.dataset.walking = 'false' },160)
+    dragTimer.current = setTimeout(() => { if (robot.current) { robot.current.dataset.walking = 'false'; robot.current.style.setProperty('--drag-swing','0deg'); robot.current.style.setProperty('--drag-lean','0deg') } },160)
   }
 
   function finishDrag(event) {
@@ -47,6 +55,8 @@ export default function ScrollRobot() {
     clearTimeout(dragTimer.current)
     robot.current.dataset.dragging = 'false'
     robot.current.dataset.walking = 'false'
+    robot.current.style.setProperty('--drag-swing','0deg')
+    robot.current.style.setProperty('--drag-lean','0deg')
   }
 
   useEffect(() => {
@@ -142,10 +152,13 @@ export default function ScrollRobot() {
   },[dismissed])
 
   if (dismissed) return null
-  return <aside ref={robot} className="scroll-robot" aria-label="Mascota del workshop">
-    <div className="scroll-robot__bubble" aria-hidden="true"><strong>¡Conocé más sobre Rolling Code!</strong><span>Hacé clic en mí.</span></div>
-    <button type="button" className="scroll-robot__close" aria-label="Ocultar mascota" onPointerEnter={() => { interacting.current = true }} onPointerLeave={() => { interacting.current = false }} onFocus={() => { interacting.current = true }} onBlur={() => { interacting.current = false }} onClick={() => setDismissed(true)}>×</button>
-    <a href="https://rollingcodeschool.com/" target="_blank" rel="noopener noreferrer" className="scroll-robot__link" aria-label="Visitar Rolling Code School" title="Clic para visitar Rolling Code · Arrastrá para mover" draggable={false} onDragStart={event => event.preventDefault()} onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={finishDrag} onPointerCancel={event => { dragged.current = true; finishDrag(event) }} onLostPointerCapture={finishDrag} onPointerEnter={() => { interacting.current = true }} onPointerLeave={() => { if (!drag.current) interacting.current = false }} onClick={event => { if (dragged.current && event.detail !== 0) event.preventDefault() }}>
+  return <>
+    <EventChat open={chatOpen} onClose={() => setChatOpen(false)} />
+    <button type="button" className="event-chat-launcher" aria-label="Abrir asistente del evento" aria-haspopup="dialog" onClick={() => setChatOpen(true)}><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-8 8H4l-2 3V11.5a10 10 0 0 1 20 0" /><path d="M7 10h10M7 14h6" /></svg></button>
+    <aside ref={robot} className="scroll-robot" aria-label="Mascota del workshop">
+    <div className="scroll-robot__bubble" aria-hidden="true"><strong>¿Tenés dudas sobre el workshop?</strong><span>Hacé clic y charlemos.</span></div>
+    <button type="button" className="scroll-robot__close" aria-label="Ocultar mascota" onPointerEnter={() => { interacting.current = true }} onPointerLeave={() => { interacting.current = false }} onFocus={() => { interacting.current = true }} onBlur={() => { interacting.current = false }} onClick={() => { setChatOpen(false); setDismissed(true) }}>×</button>
+    <button type="button" className="scroll-robot__link" aria-label="Abrir asistente del evento" aria-haspopup="dialog" title="Clic para conversar · Arrastrá para mover" draggable={false} onDragStart={event => event.preventDefault()} onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={finishDrag} onPointerCancel={event => { dragged.current = true; finishDrag(event) }} onLostPointerCapture={finishDrag} onPointerEnter={() => { interacting.current = true }} onPointerLeave={() => { if (!drag.current) interacting.current = false }} onClick={event => { if (dragged.current && event.detail !== 0) { event.preventDefault(); return }; robot.current.dataset.greeting = 'false'; setChatOpen(true) }}>
     <svg className="scroll-robot__figure" viewBox="0 0 76 116" fill="none" aria-hidden="true">
       <ellipse cx="38" cy="110" rx="23" ry="4" fill="black" opacity=".3" />
       <g className="scroll-robot__leg scroll-robot__leg--left"><path d="M29 82v17l-5 7" stroke="#a1a1aa" strokeWidth="7" strokeLinecap="round" /><path d="M19 107h10" stroke="#ededf0" strokeWidth="5" strokeLinecap="round" /></g>
@@ -159,6 +172,7 @@ export default function ScrollRobot() {
         <path d="m32 21-16 8v7l16 8v-9l-8-3 8-3zm12 0 16 8v7l-16 8v-9 0l8-3-8-3z" fill="#f5f5f5" />
       </g>
     </svg>
-    </a>
+    </button>
   </aside>
+  </>
 }

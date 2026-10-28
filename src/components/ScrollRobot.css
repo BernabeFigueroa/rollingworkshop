@@ -2,7 +2,7 @@
 @media(min-width:1024px) {
   .scroll-robot { display: block; position: absolute; top: 0; left: 0; width: 68px; height: 128px; z-index: 25; pointer-events: none; }
   .scroll-robot__figure { display: block; width: 68px; height: 104px; filter: drop-shadow(0 4px 5px #0005); }
-  .scroll-robot__link { display: block; width: 68px; height: 104px; pointer-events: auto; cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; border-radius: 28px; }
+  .scroll-robot__link { display: block; width: 68px; height: 104px; padding: 0; border: 0; background: transparent; pointer-events: auto; cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; border-radius: 28px; }
   .scroll-robot[data-dragging=true] .scroll-robot__link { cursor: grabbing; }
   .scroll-robot__close { display: grid; place-items: center; width: 24px; height: 24px; padding: 0; margin-left: 42px; border: 1px solid #52525b; border-radius: 50%; background: #111113; color: #d4d4d8; font-size: 18px; line-height: 1; pointer-events: auto; }
   .scroll-robot__leg { transform-box: view-box; transform-origin: 38px 84px; }
@@ -16,6 +16,11 @@
   .scroll-robot[data-bubble-side=right] .scroll-robot__bubble { right: auto; left: 76px; border-radius: 16px 16px 16px 4px; }
   .scroll-robot[data-greeting=true] .scroll-robot__bubble { opacity: 1; visibility: visible; transform: translateY(0); }
   .scroll-robot[data-greeting=true] .scroll-robot__arm--right { transform-origin: 52px 65px; animation: robot-wave 520ms ease-in-out infinite alternate; }
+  .scroll-robot__leg, .scroll-robot__arm, .scroll-robot__body { transition: transform 450ms cubic-bezier(.22,1.5,.4,1); }
+  .scroll-robot[data-dragging=true] .scroll-robot__leg, .scroll-robot[data-dragging=true] .scroll-robot__arm { animation: none; transform: rotate(var(--drag-swing,0deg)); transition-duration: 120ms; }
+  .scroll-robot__leg--left { transform-origin: 29px 84px; }
+  .scroll-robot__leg--right { transform-origin: 46px 84px; }
+  .scroll-robot[data-dragging=true] .scroll-robot__body { animation: none; transform-origin: 38px 78px; transform: rotate(var(--drag-lean,0deg)); transition-duration: 160ms; }
 }
 @keyframes robot-wave { from { transform: rotate(-110deg); } to { transform: rotate(-150deg); } }
 @keyframes robot-step { from { transform: rotate(-15deg); } to { transform: rotate(15deg); } }
