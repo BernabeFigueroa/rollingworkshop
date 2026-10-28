@@ -12,11 +12,12 @@ Una experiencia web para descubrir el workshop de Rolling Code School, conocer a
 | Speakers | Grilla en escritorio y carrusel móvil con flechas, indicadores y desplazamiento táctil |
 | Agenda | Cronograma de charlas con línea de tiempo y aparición progresiva |
 | Entradas | Tres modalidades, contador dinámico de Early Bird y tarjetas con formato de ticket |
-| Compra simulada | Selección y cantidad, datos personales, tarjeta de prueba y confirmación con número de operación |
+| Checkout | Cantidad editable, datos personales, validación del formato de tarjeta y confirmación con número de operación |
 | Sponsors | Niveles Diamante, Oro y Bronce y formulario de postulación con validación de archivos |
 | Ubicación | Dirección del evento, Google Maps integrado y acceso al mapa externo |
-| Navegación móvil | Menú hamburguesa translúcido y barra inferior de acceso a entradas |
-| Mascota interactiva | Robot SVG que acompaña el scroll, se puede arrastrar y enlaza a Rolling Code School |
+| Navegación | Header fijo, menú hamburguesa móvil y barra inferior de acceso a entradas |
+| Mascota interactiva | Robot SVG que acompaña el scroll, se arrastra con inercia visual y abre el chat |
+| Rolling Bot | Asistente de respuestas automáticas sobre el evento, con consultas escritas, opciones rápidas y enlaces a las secciones |
 
 ## Tecnologías
 
@@ -28,7 +29,7 @@ Una experiencia web para descubrir el workshop de Rolling Code School, conocer a
 | CSS | Diseño responsive, efectos, transiciones y animaciones |
 | SVG y WebP | Gráficos vectoriales y fotografías optimizadas |
 | ESLint | Análisis estático del código |
-| Node.js Test Runner | Pruebas de las validaciones del checkout |
+| Node.js Test Runner | Pruebas de las validaciones del checkout y respuestas del asistente |
 
 El proyecto no utiliza Bootstrap. Las dependencias y sus versiones se pueden consultar en `package.json`.
 
@@ -51,14 +52,14 @@ Si las dependencias ya están instaladas, también podés iniciar el servidor co
 
 ```bash
 pnpm lint
-node --test src/utils/checkoutValidation.test.js
+node --test src/utils/*.test.js
 ```
 
 | Comando | Función |
 | --- | --- |
 | `pnpm dev` | Iniciar el servidor local |
 | `pnpm lint` | Ejecutar ESLint |
-| `node --test src/utils/checkoutValidation.test.js` | Comprobar las validaciones de compra |
+| `node --test src/utils/*.test.js` | Comprobar las validaciones de compra y las respuestas del chat |
 | `pnpm build` | Generar la versión de producción en `dist/` |
 | `pnpm preview` | Previsualizar una versión de producción ya generada |
 
@@ -89,14 +90,24 @@ El proceso de compra es una simulación: valida los datos ingresados y genera un
 
 1. Elegí una modalidad y una cantidad entera mayor que cero.
 2. Completá los datos personales con información ficticia.
-3. Usá la tarjeta de prueba `4242 4242 4242 4242`, un vencimiento futuro en formato `MM/AA` y el código `123`.
-4. Confirmá la simulación para obtener un identificador de operación `DEMO-…`.
+3. Ingresá un titular, un número de tarjeta de 13 a 19 dígitos que cumpla Luhn, un vencimiento vigente en formato `MM/AA` y un código de seguridad de 3 o 4 dígitos. No hay un número de tarjeta específico obligatorio.
+4. Presioná **Finalizar** para obtener un identificador de operación `RC-…`.
 
 La validación de tarjeta comprueba formato, vencimiento y checksum de Luhn. No realiza una autorización bancaria ni verifica fondos. No ingreses datos reales de tarjeta.
 
+La cantidad se puede escribir directamente, seleccionar con doble clic o modificar con los botones. Debe ser un entero mayor que cero; no hay un máximo comercial de entradas. Se rechazan cantidades que excedan la precisión numérica necesaria para calcular el total.
+
 ### Formulario de sponsors
 
-Solicita nombre, apellido, empresa, email corporativo y nivel de sponsor. El logo es opcional y admite PNG, JPG, SVG o WebP de hasta 5 MB. El mensaje final confirma únicamente la demostración del formulario.
+Solicita nombre, apellido, empresa, email corporativo y nivel de sponsor. El logo es opcional y admite PNG, JPG, SVG o WebP de hasta 5 MB. Al completar una postulación válida, se limpian todos los campos y el archivo seleccionado, y aparece una confirmación. El formulario no está conectado a un canal de recepción.
+
+### Robot y asistente del evento
+
+En escritorio, un clic en el robot abre **Rolling Bot**. Arrastrarlo cambia su posición sin abrir el chat; sus brazos y piernas reaccionan a la dirección del movimiento y vuelven suavemente al soltarlo. El robot saluda periódicamente y se puede ocultar.
+
+En pantallas menores de 1024 px, un botón flotante permite acceder al chat. El asistente responde sobre entradas, precios, agenda, speakers, ubicación y sponsors. Funciona con reglas locales y contenido del evento, sin una API de inteligencia artificial, claves ni solicitudes a un modelo externo. Si no reconoce una consulta, lo informa y ofrece visitar el sitio de Rolling Code.
+
+La conversación se mantiene únicamente en el estado del componente y se pierde al recargar la página. No debe utilizarse para ingresar datos de tarjeta o información personal.
 
 ## Diseño y accesibilidad
 

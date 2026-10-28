@@ -18,8 +18,8 @@ export default function App() {
       <Header />
       <Speakers />
       <Agenda />
-      <ComprarEntrada />
       <Sponsors />
+      <ComprarEntrada />
       <SponsorForm />
       <ComoLlegar />
     </main>
