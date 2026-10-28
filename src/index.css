@@ -233,6 +233,10 @@
 .footer-logo { width: 140px; height: auto; }
 .site-footer a { width: 36px; height: 36px; border: 1px solid #303034; background: #171719; }
 .site-footer a img { width: 18px; height: 18px; }
+.footer-back-top { display: flex; justify-content: center; margin-top: 28px; }
+.footer-back-top button { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 44px; padding: 11px 20px; border: 1px solid #e0202a55; border-radius: 999px; background: #191114; color: #f5f5f6; font-size: 13px; font-weight: 700; transition: background 160ms ease,border-color 160ms ease; }
+.footer-back-top button svg { color: #ff6979; }
+.footer-back-top button:hover { border-color: #e0202a; background: #2b151b; }
 .skip-link { position: fixed; top: -80px; left: 20px; z-index: 50; padding: 14px; background: white; color: black; border-radius: 8px; }
 .skip-link:focus { top: 20px; }
 .mobile-menu-toggle { display: none; }
