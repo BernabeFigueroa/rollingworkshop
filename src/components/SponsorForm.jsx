@@ -13,6 +13,7 @@ export default function SponsorForm() {
   const [status, setStatus] = useState('')
   const [dragging, setDragging] = useState(false)
   const input = useRef(null)
+  const confirmation = useRef(null)
 
   function chooseFile(next) {
     setStatus('')
@@ -27,7 +28,15 @@ export default function SponsorForm() {
   function submit(event) {
     event.preventDefault()
     if (error) { input.current.focus(); return }
-    setStatus('Postulación de prueba validada. No se enviaron datos: el canal de recepción todavía no está conectado.')
+    event.currentTarget.reset()
+    setFile(null)
+    setError('')
+    setDragging(false)
+    setStatus('Completaste los datos de tu postulación correctamente.')
+    requestAnimationFrame(() => {
+      confirmation.current?.focus({ preventScroll: true })
+      confirmation.current?.scrollIntoView({ block: 'center', behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
+    })
   }
 
   return <section id="sumate-sponsor" className="landing-container landing-section sponsor-application" aria-labelledby="sponsor-form-title">
@@ -48,8 +57,11 @@ export default function SponsorForm() {
       </div><p id="sponsor-file-error" className="sponsor-error" role="alert">{error}</p>{file && <button type="button" className="sponsor-remove" onClick={() => { chooseFile(null); input.current.value = '' }}>Quitar logo</button>}</div>
       <label htmlFor="sponsor-message">Mensaje opcional<textarea id="sponsor-message" name="message" rows={4} maxLength={2000} placeholder="Contanos sobre tu empresa y por qué buscás ser Sponsor del evento" /></label>
       <button className="sponsor-submit" type="submit"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="m21 3-6 18-4-8-8-4 18-6ZM11 13 21 3" strokeLinejoin="round" /></svg>Enviar postulación de Sponsor</button>
-      <p className="sponsor-notice">Formulario de demostración: no envía datos. Los campos con * son obligatorios.</p>
-      <p className="sponsor-status" role="status">{status}</p>
+      <p className="sponsor-notice">Los campos con * son obligatorios. Este formulario todavía no envía datos.</p>
     </form>
+    {status && <div ref={confirmation} className="sponsor-confirmation" role="status" tabIndex={-1}>
+      <span className="sponsor-confirmation__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m5 12 4 4L19 6" /></svg></span>
+      <div><h3>¡Postulación completada!</h3><p>{status}</p><small>El formulario quedó limpio. No se enviaron datos a un servidor.</small></div>
+    </div>}
   </section>
 }

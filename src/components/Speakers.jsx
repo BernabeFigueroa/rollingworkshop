@@ -3,8 +3,8 @@ import { useEffect, useRef, useState } from 'react'
 const speakerList = [
   { id: 1, nombre: "Tomás Escudero", tema: "Diseño para Developers", descripcion: "Qué mira un equipo de diseño antes de que escribas código y cómo leer un mockup para construirlo igual.", image: '/speakers/tomas-escudero.webp' },
   { id: 2, nombre: "Franco Díaz", tema: "De cero a tu primer proyecto", descripcion: "Un recorrido para pasar de mirar tutoriales a terminar una app simple con HTML, JavaScript y React.", image: '/speakers/franco-diaz.webp' },
-  { id: 3, nombre: "Gastón", tema: "Arma tu portafolio con IA", descripcion: "Cómo usar asistentes de IA para construir y publicar un portafolio que muestre lo que sabes hacer.", image: '/speakers/gaston.webp' },
-  { id: 4, nombre: "Mauro", tema: "Git y GitHub sin miedo", descripcion: "Los comandos que vas a usar todos los días y cómo trabajar en equipo sin pisar el código de otros.", image: '/speakers/mauro.webp' },
+  { id: 3, nombre: "Gastón Roger", tema: "Arma tu portafolio con IA", descripcion: "Cómo usar asistentes de IA para construir y publicar un portafolio que muestre lo que sabes hacer.", image: '/speakers/gaston.webp' },
+  { id: 4, nombre: "Mauro Coniglio", tema: "Git y GitHub sin miedo", descripcion: "Los comandos que vas a usar todos los días y cómo trabajar en equipo sin pisar el código de otros.", image: '/speakers/mauro.webp' },
   { id: 5, nombre: "José Díaz", tema: "Tu primer backend con Node", descripcion: "Cómo se arma una API, qué hace una base de datos y por dónde empezar para conectar todo.", image: '/speakers/jose-diaz.webp' },
   { id: 6, nombre: "Tomás Gómez", tema: "Prepárate para tu primera entrevista", descripcion: "Qué preguntan en una entrevista técnica. Cómo practicar y cómo contar tus proyectos con claridad.", image: '/speakers/tomas-gomez.webp', portraitOrigin: '50% 20%' },
   { id: 7, nombre: "Pablo Basso", tema: "Mi primer trabajo en IT", descripcion: "Una charla en primera persona sobre cómo se consigue el primer puesto y qué se aprende en los primeros meses.", image: '/speakers/pablo-basso.webp', portraitOrigin: '22% 35%' },

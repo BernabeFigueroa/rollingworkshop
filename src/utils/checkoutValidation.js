@@ -39,16 +39,16 @@ export function validatePayment(data, now = new Date()) {
   if (data.holder.trim().length < 2 || data.holder.trim().length > 100 || !personName.test(data.holder.trim())) {
     errors.holder = 'Ingresá el nombre del titular, sin números.'
   }
-  if (!isValidCardNumber(data.number)) errors.number = 'Ingresá un número de tarjeta de prueba válido, de 13 a 19 dígitos.'
+  if (!isValidCardNumber(data.number)) errors.number = 'Ingresá un número de tarjeta válido, de 13 a 19 dígitos.'
   const expiry = /^(0[1-9]|1[0-2])\/(\d{2})$/.exec(data.expiry)
   if (!expiry) errors.expiry = 'Usá el formato MM/AA, con un mes entre 01 y 12.'
   else {
     const month = Number(expiry[1])
     const year = 2000 + Number(expiry[2])
     if (year < now.getFullYear() || (year === now.getFullYear() && month < now.getMonth() + 1)) {
-      errors.expiry = 'La tarjeta está vencida. Usá una fecha de prueba vigente.'
+      errors.expiry = 'La tarjeta está vencida. Ingresá una fecha vigente.'
     }
   }
-  if (!/^\d{3,4}$/.test(data.cvv)) errors.cvv = 'Ingresá un código de seguridad de prueba de 3 o 4 dígitos.'
+  if (!/^\d{3,4}$/.test(data.cvv)) errors.cvv = 'Ingresá un código de seguridad de 3 o 4 dígitos.'
   return errors
 }
