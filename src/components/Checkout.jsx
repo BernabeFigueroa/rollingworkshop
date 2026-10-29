@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { validatePersonal, validatePayment } from '../utils/checkoutValidation'
+import DigitalTicket from './DigitalTicket'
 
 const steps = ['Entrada', 'Datos', 'Pago', 'Listo']
 const emptyPersonal = { name: '', surname: '', email: '', dni: '', phone: '' }
@@ -136,7 +137,7 @@ export default function Checkout({ ticketOptions, selectedTicket, onSelect, quan
         </>}
         {step === 1 && <><p className="purchase-help">Completá todos los campos para continuar. El DNI se ingresa sin puntos y el teléfono con código de área.</p><div className="purchase-fields">{personalFields.map(field => <Field key={field.name} field={field} value={personal[field.name]} error={errors[field.name]} onChange={(name, value) => update(setPersonal, name, value)} />)}</div></>}
         {step === 2 && <><div className="purchase-fields">{paymentFields.map(field => <Field key={field.name} field={field} value={payment[field.name]} error={errors[field.name]} onChange={changePayment} />)}</div><p className="purchase-help">Ingresá el número, el vencimiento y el código de seguridad de la tarjeta.</p></>}
-        {step === 3 && receipt && <div className="purchase-success" role="status"><span className="purchase-success__mark" aria-hidden="true">✓</span><p>Gracias, {receipt.name}. Completaste todos los pasos.</p><div className="purchase-operation"><span>Número de operación</span><strong>{receipt.operation}</strong></div><p className="purchase-help">No se realizó ningún cobro ni se emitieron entradas. Los datos de tarjeta se eliminaron del formulario.</p><button type="button" className="ticket-button ticket-button--primary" onClick={restart}>Elegir otras entradas</button></div>}
+        {step === 3 && receipt && <div className="purchase-success"><div role="status"><span className="purchase-success__mark" aria-hidden="true">✓</span><p>Gracias, {receipt.name}. Completaste todos los pasos.</p></div><DigitalTicket receipt={receipt} /><p className="purchase-help">No se realizó ningún cobro ni se emitieron entradas. Los datos de tarjeta se eliminaron del formulario.</p><button type="button" className="purchase-back" onClick={restart}>Elegir otras entradas</button></div>}
         {Object.keys(errors).length > 0 && <p className="purchase-error-summary" role="alert">Revisá los campos indicados antes de continuar.</p>}
         {step < 3 && <><div className="purchase-actions">{step > 0 && <button type="button" className="purchase-back" onClick={back}>Volver</button>}<button className="ticket-button ticket-button--primary" type="submit">{step === 2 ? 'Finalizar' : 'Continuar'}</button></div><p className="checkout-note">No se realizará ningún cobro. Tus datos no se envían ni se guardan.</p></>}
       </form>

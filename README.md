@@ -93,6 +93,8 @@ El proceso de compra es una simulación: valida los datos ingresados y genera un
 3. Ingresá un titular, un número de tarjeta de 13 a 19 dígitos que cumpla Luhn, un vencimiento vigente en formato `MM/AA` y un código de seguridad de 3 o 4 dígitos. No hay un número de tarjeta específico obligatorio.
 4. Presioná **Finalizar** para obtener un identificador de operación `RC-…`.
 
+La confirmación muestra un ticket animado con modalidad, cantidad, desglose de importes y número de operación. Se puede descargar como comprobante SVG para guardar o imprimir. Lleva la leyenda **Sin validez de acceso** y no contiene datos personales ni de tarjeta; su código de barras es decorativo.
+
 La validación de tarjeta comprueba formato, vencimiento y checksum de Luhn. No realiza una autorización bancaria ni verifica fondos. No ingreses datos reales de tarjeta.
 
 La cantidad se puede escribir directamente, seleccionar con doble clic o modificar con los botones. Debe ser un entero mayor que cero; no hay un máximo comercial de entradas. Se rechazan cantidades que excedan la precisión numérica necesaria para calcular el total.
