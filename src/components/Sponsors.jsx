@@ -42,7 +42,7 @@ export default function Sponsors() {
   return <section id="sponsors" className="landing-container landing-section sponsors-section" aria-label="Sponsors del evento">
     {tiers.map(tier => <div key={tier.id} className={`sponsor-tier sponsor-tier--${tier.id}`}>
       <header className="sponsor-tier__header"><div className="sponsor-tier__symbol" aria-hidden="true" /><div><h2>{tier.title}<span>{tier.level}</span></h2><p>{tier.subtitle}</p></div></header>
-      <div className="sponsor-grid">{tier.sponsors.map(sponsor => <article className="sponsor-card" key={sponsor.name} style={{ '--brand': sponsor.color }}>
+      <div className="sponsor-grid">{tier.sponsors.map((sponsor,index) => <article className="sponsor-card" key={sponsor.name} style={{ '--brand': sponsor.color, '--sponsor-delay': `${index * 3}s`, '--sponsor-direction': index % 2 ? -1 : 1 }}>
         {sponsor.category && <div className="sponsor-card__top"><span>{sponsor.category}</span><a href={sponsor.url} target="_blank" rel="noopener noreferrer" aria-label={`Visitar ${sponsor.name}`}>↗</a></div>}
         <div className="sponsor-logo" aria-hidden="true">{sponsor.raster ? <img src={sponsor.logo} alt="" loading="lazy" width="72" height="72" /> : <span style={{ maskImage: `url("${sponsor.logo}")` }} />}</div>
         <h3>{sponsor.name}</h3><p className="sponsor-card__description">{sponsor.description}</p>

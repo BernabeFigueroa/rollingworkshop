@@ -33,3 +33,17 @@ test('pago: exige titular y formato del código de seguridad', () => {
   for (const cvv of ['', '12', '12345', '1a3']) assert.ok(validatePayment({ ...payment, cvv }, now).cvv)
   assert.ok(validatePayment({ ...payment, holder: '   ' }, now).holder)
 })
+import { detectCardBrand } from './checkoutValidation.js'
+
+test('marca: identifica Visa, Amex y ambos rangos de Mastercard sin validar el pago', () => {
+  assert.equal(detectCardBrand('4'),'visa')
+  assert.equal(detectCardBrand('34'),'amex')
+  assert.equal(detectCardBrand('37'),'amex')
+  assert.equal(detectCardBrand('5555 5555 5555 4444'),'mastercard')
+  assert.equal(detectCardBrand('2221'),'mastercard')
+  assert.equal(detectCardBrand('2720'),'mastercard')
+  assert.equal(detectCardBrand('2220'),null)
+  assert.equal(detectCardBrand('2721'),null)
+  assert.equal(detectCardBrand('2'),null)
+  assert.equal(detectCardBrand(''),null)
+})

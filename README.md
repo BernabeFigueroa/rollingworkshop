@@ -2,13 +2,13 @@
 
 Una experiencia web para descubrir el workshop de Rolling Code School, conocer a sus speakers y recorrer una simulación de compra de entradas presenciales o virtuales.
 
-[Ver la landing](https://rollingdev2.vercel.app/) · [Repositorio](https://github.com/BernabeFigueroa/rollingworkshop)
+[Ver la landing](https://rollingworkshop.vercel.app/) · [Repositorio](https://github.com/BernabeFigueroa/rollingworkshop)
 
 ## Funcionalidades
 
 | Sección | Experiencia |
 | --- | --- |
-| Portada | Información del evento, modalidades, accesos a entradas y fondo animado |
+| Portada | Información del evento, modalidades, accesos a entradas y fondo animado con profundidad suave al mover el mouse en escritorio |
 | Speakers | Grilla en escritorio y carrusel móvil con flechas, indicadores y desplazamiento táctil |
 | Agenda | Cronograma de charlas con línea de tiempo y aparición progresiva |
 | Entradas | Tres modalidades, contador dinámico de Early Bird y tarjetas con formato de ticket |
@@ -18,6 +18,21 @@ Una experiencia web para descubrir el workshop de Rolling Code School, conocer a
 | Navegación | Header fijo, menú hamburguesa móvil y barra inferior de acceso a entradas |
 | Mascota interactiva | Robot SVG que acompaña el scroll, se arrastra con inercia visual y abre el chat |
 | Rolling Bot | Asistente de respuestas automáticas sobre el evento, con consultas escritas, opciones rápidas y enlaces a las secciones |
+
+## Valor agregado
+
+Además de las secciones del mockup, la landing incorpora mejoras para facilitar la navegación, orientar al visitante y dar continuidad al recorrido de compra:
+
+- **Mascota del webchat:** un robot SVG que representa a Rolling Code y permite abrir Rolling Bot. En escritorio acompaña el scroll, saluda y se puede arrastrar con una respuesta de inercia visual en sus extremidades. Puede ocultarse. En celular, el chat tiene un acceso flotante.
+- **Asistencia sobre el evento:** el webchat ofrece respuestas automáticas a consultas sobre entradas, agenda, speakers, ubicación y sponsors, con accesos directos a las secciones. Funciona localmente, sin una API de IA, y reconoce cuando no dispone de información.
+- **Compra guiada:** recorrido por pasos, cantidad editable, detección visual de la marca de tarjeta y validación por campo. El resumen desplegable en celular permite consultar los importes sin perder el contexto del formulario.
+- **Comprobante descargable:** al finalizar se presenta un ticket con los datos de la operación, descargable en SVG. Incluye la indicación de que no tiene validez de acceso.
+- **Navegación adaptada al dispositivo:** header fijo, menú hamburguesa, carrusel de speakers en celular, acceso rápido a entradas y botón para volver al inicio de la página.
+- **Respuesta clara de los formularios:** errores asociados a cada campo y confirmación de postulación de sponsor con limpieza de los datos y del archivo seleccionado.
+- **Identidad visual y movimiento:** efectos de profundidad, iluminación de bordes, transiciones, contadores animados y guía visual de la agenda refuerzan la estética de la landing. Se aplican de forma progresiva y respetan la preferencia de movimiento reducido.
+- **Recursos optimizados y accesibilidad:** fotografías en WebP, gráficos SVG, etiquetas de formulario, navegación por teclado y foco visible.
+
+Estas mejoras amplían la experiencia del frontend. No incorporan pagos reales, emisión de entradas ni envío de postulaciones a un servidor.
 
 ## Tecnologías
 
@@ -97,7 +112,11 @@ La confirmación muestra un ticket animado con modalidad, cantidad, desglose de 
 
 La validación de tarjeta comprueba formato, vencimiento y checksum de Luhn. No realiza una autorización bancaria ni verifica fondos. No ingreses datos reales de tarjeta.
 
+Los datos personales y de tarjeta se validan al salir de cada campo. Una vez revisado, el campo se vuelve a validar mientras se corrige. El número muestra una identificación visual de Visa, Mastercard o Amex según su prefijo; reconocer una marca no confirma que la tarjeta sea válida ni autoriza un pago.
+
 La cantidad se puede escribir directamente, seleccionar con doble clic o modificar con los botones. Debe ser un entero mayor que cero; no hay un máximo comercial de entradas. Se rechazan cantidades que excedan la precisión numérica necesaria para calcular el total.
+
+En celular, durante los pasos de datos y tarjeta, un resumen desplegable muestra cantidad y total encima del formulario y acompaña el desplazamiento. **Ver detalle** permite consultar modalidad, subtotal y cargo por servicio. En escritorio el resumen permanece abierto en su columna.
 
 ### Formulario de sponsors
 
