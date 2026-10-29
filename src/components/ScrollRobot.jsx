@@ -13,6 +13,13 @@ export default function ScrollRobot() {
   const dragged = useRef(false)
   const dragTimer = useRef(null)
 
+  function clampRobotY(value) {
+    const headerBottom = document.querySelector('.site-nav')?.getBoundingClientRect().bottom || 0
+    const top = window.scrollY + Math.max(0,headerBottom) + 12
+    const bottom = window.scrollY + window.innerHeight - 140
+    return Math.max(top,Math.min(bottom,value))
+  }
+
   function startDrag(event) {
     if (event.button !== 0) return
     const bounds = robot.current.getBoundingClientRect()
@@ -37,7 +44,7 @@ export default function ScrollRobot() {
     robot.current.style.setProperty('--drag-swing',`${Math.max(-32,Math.min(32,velocity * 22))}deg`)
     robot.current.style.setProperty('--drag-lean',`${Math.max(-8,Math.min(8,velocity * 5))}deg`)
     const x = Math.max(0,Math.min(document.documentElement.clientWidth - 76,start.left + dx))
-    const y = Math.max(window.scrollY,Math.min(window.scrollY + window.innerHeight - 128,start.top + dy))
+    const y = clampRobotY(start.top + dy)
     currentPosition.current = { x,y }
     manualPosition.current = { x, offsetY: y - window.scrollY }
     robot.current.style.transform = `translate3d(${x}px,${y}px,0)`
@@ -80,12 +87,19 @@ export default function ScrollRobot() {
 
     function draw() {
       frame = 0
-      if (interacting.current) return
+      if (interacting.current) {
+        if (currentPosition.current) {
+          currentPosition.current.y = clampRobotY(currentPosition.current.y)
+          element.style.transform = `translate3d(${currentPosition.current.x}px,${currentPosition.current.y}px,0)`
+        }
+        return
+      }
       if (!target) return
       if (!currentPosition.current || reducedMotion.matches) currentPosition.current = { ...target }
       const position = currentPosition.current
       position.x += (target.x - position.x) * .12
       position.y += (target.y - position.y) * .12
+      position.y = clampRobotY(position.y)
       element.style.transform = `translate3d(${position.x}px,${position.y}px,0)`
       element.dataset.bubbleSide = position.x < 230 ? 'right' : 'left'
       if (Math.abs(target.x - position.x) + Math.abs(target.y - position.y) > .5) frame = requestAnimationFrame(draw)

@@ -21,6 +21,43 @@ const Agenda = () => {
   const list = useRef(null)
 
   useEffect(() => {
+    const element = list.current
+    const rows = [...element.children]
+    let frame = 0
+
+    function update() {
+      frame = 0
+      const points = rows.map((row,index) => row.offsetTop + (index === 0 ? 24.5 : 36.5))
+      const start = points[0]
+      const length = Math.max(1,points.at(-1) - start)
+      const readingPosition = window.innerHeight * .48 - element.getBoundingClientRect().top
+      const progress = Math.max(0,Math.min(1,(readingPosition - start) / length))
+      element.style.setProperty('--agenda-line-start',`${start}px`)
+      element.style.setProperty('--agenda-line-length',`${length}px`)
+      element.style.setProperty('--agenda-progress',progress)
+      const closest = points.reduce((best,point,index) => Math.abs(point - readingPosition) < Math.abs(points[best] - readingPosition) ? index : best,0)
+      const withinAgenda = readingPosition >= start - 45 && readingPosition <= points.at(-1) + 45
+      rows.forEach((row,index) => {
+        row.classList.toggle('is-reading',withinAgenda && index === closest)
+        row.classList.toggle('is-passed',points[index] <= readingPosition)
+      })
+    }
+
+    function schedule() { if (!frame) frame = requestAnimationFrame(update) }
+    const resize = new ResizeObserver(schedule)
+    resize.observe(element)
+    window.addEventListener('scroll',schedule,{ passive: true })
+    window.addEventListener('resize',schedule)
+    schedule()
+    return () => {
+      cancelAnimationFrame(frame)
+      resize.disconnect()
+      window.removeEventListener('scroll',schedule)
+      window.removeEventListener('resize',schedule)
+    }
+  },[])
+
+  useEffect(() => {
     if (!('IntersectionObserver' in window)) return
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {

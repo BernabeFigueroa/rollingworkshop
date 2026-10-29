@@ -3,6 +3,9 @@
 .checkout-heading li.is-complete { background: #ffffff18; border-color: #ffffff80; }
 .purchase-form { scroll-margin-top: 28px; }
 .purchase-form > h3 { outline: none; }
+.checkout-heading li { transition: background-color 220ms ease,border-color 220ms ease,color 220ms ease; }
+@media(prefers-reduced-motion:no-preference) { .purchase-form { animation: checkout-step-enter 240ms ease-out both; } }
+@keyframes checkout-step-enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 .purchase-form fieldset { border: 0; padding: 0; margin: 0; }
 .purchase-form .checkout-option { cursor: pointer; }
 .purchase-form .checkout-option input { flex: 0 0 auto; width: 16px; height: 16px; accent-color: #e0202a; }
@@ -18,6 +21,13 @@
 .purchase-field > span > span { color: #c71d2a; }
 .purchase-field input { width: 100%; min-height: 48px; min-width: 0; border: 2px solid #d4d4d8; border-radius: 14px; background: white; color: #0b0b0c; padding: 12px 14px; font-size: 16px; font-weight: 400; }
 .purchase-field input::placeholder { color: #747480; opacity: 1; }
+.purchase-input-wrap { position: relative; min-width: 0; }
+.purchase-input-wrap--card input { padding-right: 112px; }
+.purchase-card-brand { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); display: inline-flex; align-items: center; gap: 5px; padding: 5px 7px; border: 1px solid #e0e0e5; border-radius: 6px; background: #f6f6f8; color: #71717a; font-size: 10px; font-weight: 700; pointer-events: none; }
+.purchase-card-brand--visa { color: #203b87; font-size: 14px; font-style: italic; font-weight: 900; }
+.purchase-card-brand--amex { background: #176495; color: white; border-color: #176495; font-weight: 800; text-transform: uppercase; }
+.purchase-card-brand--mastercard { color: #26262b; }
+@media(max-width:360px) { .purchase-input-wrap--card input { padding-right: 14px; }.purchase-input-wrap--card { padding-bottom: 30px; }.purchase-card-brand { top: auto; bottom: 0; right: 0; transform: none; } }
 .purchase-field input[aria-invalid=true] { border-color: #c71d2a; }
 .purchase-field .purchase-error { color: #b01527; font-size: 12px; line-height: 1.5; font-weight: 600; }
 .purchase-error-summary { margin-top: 20px; padding: 12px; border-radius: 10px; border: 1px solid #f0b7bd; background: #fff0f1; color: #9e1020; font-size: 12px; }
@@ -38,6 +48,28 @@
 .purchase-operation span { font-size: 12px; color: #52525b; }
 .purchase-operation strong { font-family: ui-monospace,monospace; font-size: 18px; overflow-wrap: anywhere; }
 .purchase-receipt-email { font-size: 12px; color: #d4d4d8; overflow-wrap: anywhere; margin-top: 20px; }
+.order-summary__toggle { display: none; }
+@media(max-width:600px) {
+  .order-summary--compact { order: -1; position: sticky; top: 88px; z-index: 20; padding: 0; border: 1px solid #ffffff20; box-shadow: 0 8px 20px #0003; overflow: hidden; }
+  .order-summary--compact .order-summary__toggle { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; min-height: 72px; padding: 14px 16px; border: 0; background: #111113; color: white; text-align: left; }
+  .order-summary__toggle > span:first-child { min-width: 0; }
+  .order-summary__toggle small { display: block; font-size: 10px; color: #a1a1aa; margin-bottom: 5px; }
+  .order-summary__toggle strong { display: block; font-size: 13px; font-weight: 800; overflow-wrap: anywhere; }
+  .order-summary__toggle-label { display: inline-flex; align-items: center; gap: 5px; flex-shrink: 0; color: #ff8995; font-size: 10px; }
+  .order-summary--compact[data-expanded=true] .order-summary__toggle svg { transform: rotate(180deg); }
+  .order-summary--compact .order-summary__content { padding: 20px; border-top: 1px solid #29292e; max-height: 45dvh; overflow-y: auto; overscroll-behavior: contain; }
+  .order-summary--compact[data-expanded=false] .order-summary__content { display: none; }
+  .order-summary--compact[data-expanded=true] { position: static; scroll-margin-top: 12px; }
+  .checkout-grid:has(.order-summary--compact) .purchase-form { scroll-margin-top: 100px; }
+  .order-summary__toggle:focus-visible { outline-offset: -4px; }
+}
+.digital-ticket { margin-top: 24px; perspective: 1000px; }
+.digital-ticket__image { display: block; width: 100%; max-width: 380px; height: auto; margin-inline: auto; border-radius: 20px; box-shadow: 0 14px 25px -12px #0006; }
+.digital-ticket__download { gap: 10px; min-height: 48px; }
+.digital-ticket__download svg { flex-shrink: 0; }
+.digital-ticket__help { color: #62626c; font-size: 11px; line-height: 1.6; margin: 12px 0 0; }
+@media(prefers-reduced-motion:no-preference) { .digital-ticket__image { animation: digital-ticket-reveal 700ms cubic-bezier(.2,.7,.25,1) both; transform-origin: center top; } }
+@keyframes digital-ticket-reveal { from { opacity: 0; transform: translateY(18px) rotateX(-12deg) scale(.97); } to { opacity: 1; transform: translateY(0) rotateX(0) scale(1); } }
 @media(max-width:600px) {
   .purchase-fields { grid-template-columns: 1fr; gap: 18px; }
   .purchase-field input { font-size: 16px; }

@@ -1,6 +1,7 @@
 import calendar from '../assets/calendario.svg'
 import location from '../assets/ubicacion.svg'
 import ticket from '../assets/entrada.svg'
+import EventStats from './EventStats'
 
 const facts = [
   { icon: calendar, title: 'JUE 19/11', detail: '18.00 hs', date: true },
@@ -9,9 +10,24 @@ const facts = [
 ]
 
 export default function Header() {
+  function moveDepth(event) {
+    if (event.pointerType !== 'mouse' || !window.matchMedia('(min-width: 901px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)').matches) return
+    const panel = event.currentTarget
+    const bounds = panel.getBoundingClientRect()
+    const x = Math.max(-1,Math.min(1,(event.clientX - bounds.left) / bounds.width * 2 - 1))
+    const y = Math.max(-1,Math.min(1,(event.clientY - bounds.top) / bounds.height * 2 - 1))
+    panel.style.setProperty('--hero-depth-x',`${x * 6}px`)
+    panel.style.setProperty('--hero-depth-y',`${y * 5}px`)
+  }
+
+  function resetDepth(event) {
+    event.currentTarget.style.setProperty('--hero-depth-x','0px')
+    event.currentTarget.style.setProperty('--hero-depth-y','0px')
+  }
+
   return <>
     <section className="hero-shell" aria-labelledby="hero-title">
-      <div className="hero-panel">
+      <div className="hero-panel" onPointerMove={moveDepth} onPointerLeave={resetDepth} onPointerCancel={resetDepth}>
         <div className="hero-code-background" aria-hidden="true">
           <svg className="hero-code-background__network" viewBox="0 0 1200 720" fill="none" preserveAspectRatio="xMidYMid slice">
             <path d="M-60 180 180 80 420 200 700 100 940 240 1260 120M-60 540 220 400 460 580 740 440 1000 600 1260 460M180 80 220 400 420 200 460 580 700 100 740 440 940 240 1000 600" />
@@ -36,6 +52,6 @@ export default function Header() {
         </aside>
       </div>
     </section>
-    <dl className="event-stats landing-container">{[['120', 'lugares presenciales'], ['10', 'charlas de speakers'], ['3 h 40', 'de 18.00 a 21.40 hs'], ['2', 'modalidades: presencial y virtual']].map(([value, label]) => <div key={value}><dt>{value}</dt><dd>{label}</dd></div>)}</dl>
+    <EventStats />
   </>
 }

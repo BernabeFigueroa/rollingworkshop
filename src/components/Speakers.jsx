@@ -61,8 +61,8 @@ function Speakers() {
           if (!window.matchMedia('(max-width: 700px)').matches) return
           if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') { event.preventDefault(); goTo(active + (event.key === 'ArrowRight' ? 1 : -1)) }
         }}>
-          {speakerList.map((speaker) => (
-            <article key={speaker.id} className="speaker-card" onPointerMove={moveLight}>
+          {speakerList.map((speaker,index) => (
+            <article key={speaker.id} className={`speaker-card${index === active ? ' is-active' : ''}`} onPointerMove={moveLight}>
               <div className="speaker-card__photo">
               <img
                 src={speaker.image}

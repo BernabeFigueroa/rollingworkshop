@@ -1,6 +1,15 @@
 const personName = /^[\p{L}\p{M}][\p{L}\p{M} .'’-]*$/u
 const digits = (value) => value.replace(/\s/g, '')
 
+export function detectCardBrand(value) {
+  const number = digits(value)
+  if (/^4/.test(number)) return 'visa'
+  if (/^3[47]/.test(number)) return 'amex'
+  const prefix = Number(number.slice(0,4))
+  if (/^5[1-5]/.test(number) || (number.length >= 4 && prefix >= 2221 && prefix <= 2720)) return 'mastercard'
+  return null
+}
+
 export function validatePersonal(data) {
   const errors = {}
   for (const [key, label] of [['name', 'nombre'], ['surname', 'apellido']]) {
