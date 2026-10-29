@@ -141,9 +141,4 @@ La conversación se mantiene únicamente en el estado del componente y se pierde
 
 Las fotografías de speakers están en `public/speakers/`. Las referencias de los logos de sponsors se encuentran en `src/assets/sponsors/SOURCES.md`.
 
-## Despliegue en Vercel
-
-La aplicación está en la raíz del repositorio. En Vercel, dejá **Root Directory** vacío o en `.`; seleccioná Vite y usá `dist` como directorio de salida. Si antes estaba configurado `rollingDev`, actualizá ese valor antes del próximo despliegue.
-
-Los recursos de terceros —Google Fonts y Google Maps— necesitan conexión a Internet. Para agregar pagos reales, envío de formularios o persistencia de datos se requiere una integración adicional; esas capacidades no forman parte de esta implementación.
 
